@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post" class="container py-5 d-flex flex-column align-items-center">
+    {% csrf_token %}
+    <p class="text-center">¿Estás seguro que deseas eliminar el laboratorio: "{{ nombre_laboratorio }}"?</p>
+    <button type="submit" class="btn btn-dark my-1">Confirmar</button>
+    <a href="/laboratorio/listar" class="btn btn-link text-dark m-1 fw-bold fw-bold text-decoration-none">Volver atrás</a>
+</form>
+{% endblock content %}

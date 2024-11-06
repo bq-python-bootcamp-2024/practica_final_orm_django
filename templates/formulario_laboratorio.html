@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<section class="container col-12 col-lg-6">
+    <h2 class="py-3 text-center">{{ titulo|default:'Formulario' }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy}}
+        <button type="submit" class="btn btn-dark">Enviar</button>
+    </form>
+    <a href="/laboratorio/listar/" class="ms-0 ps-0 py-3 btn btn-link text-dark m-1 fw-bold text-decoration-none">Volver al listado de laboratorios</a>
+</section>
+{% endblock content %}
