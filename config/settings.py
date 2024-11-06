@@ -91,6 +91,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# Cargar variables para configurar la base de datos desde archivo .env
 DATABASES = {
     'default': {
         'ENGINE': env('ENGINE'),
@@ -139,7 +140,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Configurar directorio static para personalizar el diseño
+# Configurar directorio static para servir archivos estaticos durante el desarrollo
 STATICFILES_DIRS = [
     BASE_DIR / 'static/',
 ]

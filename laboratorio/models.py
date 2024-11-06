@@ -30,15 +30,18 @@ class DirectorGeneral(models.Model):
     def __str__(self):
         return self.nombre
 
-# Validación
+# Funciones utilizadas en la validación del modelo producto
+# Función para validar que el año sea posterior a 2015
 def validar_anno(anno):
     if anno < 2015:
         raise ValidationError(f'La fecha de fabricación debe ser igual o posterior al año 2015.')
 
+# Función para obtener el año actual
 def anno_actual():
     return datetime.datetime.now().year
 
 class Producto(models.Model):
+    # Definir límite para fecha de fabricación y crear opciónes disponibles
     MIN_ANNO = 2015
     OPCIONES_ANNO = [(i, i) for i in range(MIN_ANNO, datetime.datetime.now().year+1)]
 

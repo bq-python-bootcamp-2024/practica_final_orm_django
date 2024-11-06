@@ -1,12 +1,17 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+
+# Modelos y formularios aplicación laboratorio
 from .models import Laboratorio
 from .forms import LaboratorioForm
 
-from django.contrib import messages
-
+# Redirigir al usuario a la vista principal de laboratorio
 def index(request):
     return redirect('/laboratorio/listar')
 
+# Vista principal de laboratorio
+# Permite listar los laboratorios registrados en el sistema y
+# permite a los usuarios acceder a las vistas para insertar, actualizar y eliminar un laboratorio
 def listar_laboratorio(request):
     laboratorios = Laboratorio.objects.all()
     context = {
@@ -16,6 +21,7 @@ def listar_laboratorio(request):
     }
     return render(request, 'listar_laboratorio.html', context=context)
 
+# CRUD: Vista insertar laboratorio
 def insertar_laboratorio(request):
     # Método POST
     if request.method == 'POST':
@@ -38,10 +44,14 @@ def insertar_laboratorio(request):
         }
         return render(request, 'formulario_laboratorio.html', context=context)
 
+# CRUD: Vsita actualizar laboratorio
+# Requiere parámetro url id_laboratorio
 def actualizar_laboratorio(request, id_laboratorio):
+    # Verificar la existencia del laboratorio que se requiere actualizar
     try:
         laboratorio = Laboratorio.objects.get(id=id_laboratorio)
     except Laboratorio.DoesNotExist:
+        # En caso de error se redirige a la página prinicipal
         messages.error(request, 'El laboratorio que busca no existe.')
         return redirect('/laboratorio/listar')
 
@@ -66,10 +76,14 @@ def actualizar_laboratorio(request, id_laboratorio):
         }
         return render(request, 'formulario_laboratorio.html', context=context)
 
+# CRUD: Vsita eliminar laboratorio
+# Requiere parámetro url id_laboratorio
 def eliminar_laboratorio(request, id_laboratorio):
+    # Verificar la existencia del laboratorio que se requiere actualizar
     try:
         laboratorio = Laboratorio.objects.get(id=id_laboratorio)
     except Laboratorio.DoesNotExist:
+        # En caso de error se redirige a la página prinicipal
         messages.error(request, 'El laboratorio que busca no existe.')
         return redirect('/laboratorio/listar')
 
@@ -79,6 +93,8 @@ def eliminar_laboratorio(request, id_laboratorio):
         laboratorio.delete()
         messages.success(request, f'Se ha eliminado exitosamente el laboratorio: {nombre}')
         return redirect('/laboratorio/listar')
+    
+    # Método GET
     elif request.method == 'GET':
         context = {
             'titulo_documento': 'Eliminar laboratorio',

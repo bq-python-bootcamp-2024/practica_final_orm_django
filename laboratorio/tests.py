@@ -1,8 +1,12 @@
-from django.test import TestCase, SimpleTestCase
+from django.test import TestCase
 from django.urls import reverse
 
+# Modelos aplicación laboratorio
 from .models import Laboratorio
 
+# Modelo para pruebas unitarias de la aplicación laboratorio
+# Incluye revisión de todas las url disponibles para las operaciónes CRUD
+# No incluye pruebas al método POST, solo GET.
 class LaboratorioTest(TestCase):
     
     @classmethod
